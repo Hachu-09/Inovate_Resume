@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Your Resume{% endblock %}{% block body %}
+<div class="container my-4"><div class="card-x p-3 mb-4 no-print d-flex flex-wrap gap-2 align-items-center">
+<form method="post" action="/preview" class="d-flex gap-2 align-items-center"><input type="hidden" name="data_json" value="{{ data_json }}">
+<select name="style" class="form-select" onchange="this.form.submit()">{% for k,v in styles.items() %}<option value="{{k}}" {{ "selected" if k==style }}>{{v}}</option>{% endfor %}</select></form>
+<form method="post" action="/download"><input type="hidden" name="data_json" value="{{ data_json }}"><input type="hidden" name="style" value="{{style}}">
+<button class="btn btn-bur"><i class="bi bi-file-earmark-word"></i> Download .docx</button></form>
+<button class="btn btn-outline-bur" onclick="print()"><i class="bi bi-file-earmark-pdf"></i> Save as PDF</button></div>
+<div class="paper t-{{style}}"><h2>{{ data.name }}</h2>{% if data.title %}<div>{{ data.title }}</div>{% endif %}
+<div class="ct">{{ data.contact|join(" | ") }}</div>
+{% for s in data.sections if s.lines %}<h5>{{ s.title }}</h5><ul>{% for l in s.lines %}<li>{{ l }}</li>{% endfor %}</ul>{% endfor %}</div></div>{% endblock %}

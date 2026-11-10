@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block title %}ATS Checker{% endblock %}{% block body %}
+<div class="container my-5"><h2 class="mb-4">ATS Checker</h2>
+<form method="post" enctype="multipart/form-data" class="card-x p-4 mb-4">
+<label class="form-label fw-semibold">Resume (.docx or .pdf)</label>
+<input class="form-control mb-3" type="file" name="resume" accept=".docx,.pdf" required>
+<label class="form-label fw-semibold">Job description <small class="text-muted">(optional, enables AI match)</small></label>
+<textarea class="form-control mb-3" name="jd" rows="4"></textarea>
+<button class="btn btn-bur px-4">Analyze</button></form>
+{% if result %}<div class="row g-4">
+<div class="col-md-4"><div class="card-x p-4 text-center h-100">
+<div class="ring" style="--v:{{result.score}}"><span>{{result.score}}</span></div>
+<h4 class="mt-3">{{result.grade}}</h4><p class="text-muted mb-0">{{result.words}} words{% if result.model_used %} · AI match applied{% endif %}</p></div></div>
+<div class="col-md-8"><div class="card-x p-4 h-100"><h5 class="text-bur mb-3">Score breakdown</h5>
+{% for i in result["items"] %}<div class="mb-3"><div class="d-flex justify-content-between"><span>{{i.label}}</span><b>{{i.pts}}/{{i.max}}</b></div>
+<div class="progress"><div class="progress-bar" style="width:{{ (100*i.pts/i.max)|round }}%"></div></div></div>{% endfor %}</div></div>
+<div class="col-12"><div class="card-x p-4"><h5 class="text-bur">Recommendations</h5>
+{% if result.tips %}<ul>{% for t in result.tips %}<li>{{t}}</li>{% endfor %}</ul>{% else %}<p>Great job - no major issues found.</p>{% endif %}
+<form method="post" action="/preview" class="mt-3"><input type="hidden" name="data_json" value="{{ tailored }}">
+<button class="btn btn-bur"><i class="bi bi-magic"></i> Generate ATS-friendly resume</button></form></div></div></div>{% endif %}</div>{% endblock %}

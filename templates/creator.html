@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Resume Creator{% endblock %}{% block body %}
+<div class="container my-5"><h2 class="mb-4">Resume Creator</h2>
+<form method="post"><div class="card-x p-4 mb-4"><h5 class="text-bur">1. Choose a template</h5><div class="row g-3">
+{% for k,v in styles.items() %}<label class="col-6 col-md-3 tpl"><input type="radio" name="style" value="{{k}}" {{ "checked" if loop.first }}>
+<div class="card-x p-3 text-center"><i class="bi bi-file-earmark-text icon"></i><div class="fw-semibold">{{v}}</div></div></label>{% endfor %}</div></div>
+<div class="card-x p-4"><h5 class="text-bur">2. Your details</h5><div class="row g-3">
+{% for n,l in [("name","Full name"),("title","Job title"),("email","Mail ID"),("phone","Mobile no"),("address","Address"),("link","LinkedIn / GitHub")] %}
+<div class="col-md-6"><label class="form-label">{{l}}</label><input class="form-control" name="{{n}}" {{ "required" if n in ("name","email") }}></div>{% endfor %}
+{% for n,l in [("about","About (summary)"),("education","Education (one line each)"),("skills","Skill set (one per line)"),("experience","Experience (one bullet per line)"),("projects","Projects"),("certificates","Certificates"),("volunteering","Volunteering"),("achievements","Achievements")] %}
+<div class="col-12"><label class="form-label">{{l}}</label><textarea class="form-control" name="{{n}}" rows="3"></textarea></div>{% endfor %}
+</div><button class="btn btn-bur mt-4 px-4">Generate resume</button></div></form></div>{% endblock %}

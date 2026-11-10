@@ -1,0 +1,6 @@
+flask>=3.0
+python-docx>=1.1
+pypdf>=4.0
+# Optional Hugging Face model (semantic resume <-> job description match).
+# The app still works without it (rule-based scoring only).
+sentence-transformers>=3.0

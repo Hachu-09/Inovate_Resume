@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block body %}
+<section class="hero text-center"><div class="container">
+<h1 class="display-4 fw-bold">Get past the ATS. Get the interview.</h1>
+<p class="lead my-4">Check your resume's ATS score or create a new ATS-friendly resume in minutes.</p>
+<a href="/checker" class="btn btn-light btn-lg me-2 shadow">Check my resume</a>
+<a href="/creator" class="btn btn-outline-light btn-lg">Create a resume</a></div></section>
+<div class="container my-5"><h2 class="text-center mb-4">Features</h2><div class="row g-4">
+{% for i,t,d in [("bi-speedometer2","ATS score dashboard","Upload a .docx or .pdf and get a 0-100 score with a clear breakdown."),
+("bi-magic","Auto-tailored resume","Not ATS friendly? We rebuild it in a clean, parsable format."),
+("bi-pencil-square","Resume creator","Enter your details once and generate a polished resume."),
+("bi-layout-text-window","4 ATS templates","Classic, Modern, Compact and Elegant - all single-column and parser safe."),
+("bi-cpu","AI job match","A Hugging Face model compares your resume with a job description."),
+("bi-download","Download","Export to Word (.docx) or save as PDF from the preview.")] %}
+<div class="col-md-4"><div class="card-x p-4 h-100 text-center"><div class="icon"><i class="bi {{i}}"></i></div><h5 class="mt-2 text-bur">{{t}}</h5><p class="mb-0">{{d}}</p></div></div>{% endfor %}
+</div></div>{% endblock %}
